@@ -1,4 +1,5 @@
 ﻿using BookStack_DataAccess.Data;
+using BookStack_DataAccess.Repositories.IRepository;
 using BookStack_Models;
 using System;
 using System.Collections.Generic;

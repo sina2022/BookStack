@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookStack_DataAccess.Repositories
+namespace BookStack_DataAccess.Repositories.IRepository
 {
-    public interface ICategoryRepository : IRepository<Category>
+    public interface IProductRepository : IRepository<Product>
     {
-         void Update(Category category);
+        void Update(Product product);
     }
 }

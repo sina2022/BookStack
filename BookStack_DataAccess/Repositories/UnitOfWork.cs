@@ -1,4 +1,5 @@
 ﻿using BookStack_DataAccess.Data;
+using BookStack_DataAccess.Repositories.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace BookStack_DataAccess.Repositories
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
     }
 }

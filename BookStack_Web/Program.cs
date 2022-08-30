@@ -1,5 +1,6 @@
 using BookStack_DataAccess.Data;
 using BookStack_DataAccess.Repositories;
+using BookStack_DataAccess.Repositories.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

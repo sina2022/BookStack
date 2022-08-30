@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookStack_DataAccess.Repositories
+namespace BookStack_DataAccess.Repositories.IRepository
 {
     public interface IUnitOfWork
     {

@@ -1,14 +1,16 @@
 ﻿using BookStack_DataAccess.Data;
+using BookStack_DataAccess.Repositories.IRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BookStack_DataAccess.Repositories
 {
-    public class Repository<T>:IRepository<T> where T : class
+    public class Repository<T>: IRepository<T> where T : class
     {
         private readonly ApplicationDbContext _context;
         private DbSet<T> _dbSet;
@@ -18,10 +20,22 @@ namespace BookStack_DataAccess.Repositories
             _dbSet = _context.Set<T>();
         }
 
-        public IEnumerable<T> GetAll()
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
         {
-           return _dbSet.ToList();
-        };
+            IQueryable<T> query = _dbSet;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if (includeProperties != null)
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+            return query.ToList();
+        }
 
         public void Add(T entity)
         {
@@ -38,9 +52,21 @@ namespace BookStack_DataAccess.Repositories
             _dbSet.RemoveRange(entity);
         }
 
-        public T Get(int Id)
+        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null)
         {
-            throw new NotImplementedException();
+                IQueryable<T> query = _dbSet;
+                query = query.Where(filter);
+
+                if (includeProperties != null)
+                {
+                    foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        query = query.Include(includeProp);
+                    }
+                }
+                return query.FirstOrDefault();
+            
         }
+
     }
 }
