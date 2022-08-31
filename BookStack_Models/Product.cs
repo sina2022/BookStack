@@ -17,7 +17,7 @@ namespace BookStack_Models
         public string ImageUrl { get; set; }
 
         public int CategoryId { get; set; }
-
+        [ValidateNever]
         public Category Category { get; set; }
     }
 }
