@@ -17,9 +17,6 @@ namespace BookStack_DataAccess.Repositories
         {
             _context = context;
         }
-
-   
-
         public void Update(Product product)
         {
             var ProductDb = _context.Products.FirstOrDefault(x => x.Id == product.Id);

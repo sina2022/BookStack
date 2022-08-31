@@ -9,6 +9,7 @@ namespace BookStack_DataAccess.Repositories.IRepository
 {
     public interface IProductRepository : IRepository<Product>
     {
+        Product GetT(Func<object, bool> value);
         void Update(Product product);
     }
 }
