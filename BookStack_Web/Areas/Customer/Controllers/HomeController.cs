@@ -31,17 +31,17 @@ public class HomeController : Controller
         return View(productList);
     }
 
-    //public IActionResult Details(int productId)
-    //{
-    //    ShoppingCart cartObj = new()
-    //    {
-    //        Count = 1,
-    //        ProductId = productId,
-    //        Product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == productId, includeProperties: "Category,CoverType"),
-    //    };
+    public IActionResult Details(int productId)
+    {
+        ShoppingCart cartObj = new()
+        {
+            Count = 1,
+            ProductId = productId,
+            Product = _unitOfWork.Product.Get(u => u.Id == productId, includeProperties: "Category"),
+        };
 
-    //    return View(cartObj);
-    //}
+        return View(cartObj);
+    }
 
     //[HttpPost]
     //[ValidateAntiForgeryToken]
