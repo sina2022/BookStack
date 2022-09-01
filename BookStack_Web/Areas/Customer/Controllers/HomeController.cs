@@ -5,6 +5,7 @@ using BookStack_Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -26,9 +27,34 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        var CategoryList = _unitOfWork.Category.GetAll().Select(i => new SelectListItem
+        {
+            Text = i.Name,
+            Value = i.Name
+        });
         IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
 
-        return View(productList);
+        ViewBag.productList = productList;
+        ViewBag.categoryList = CategoryList;
+
+        return View(ViewBag);
+    }
+
+    [HttpPost]
+    public ActionResult Index(string Category)
+    {
+        IEnumerable<Product> productList = _unitOfWork.Product.GetAll(p => p.Category.Name == Category, includeProperties: "Category");
+    
+        var CategoryList = _unitOfWork.Category.GetAll().Select(i => new SelectListItem
+        {
+            Text = i.Name,
+            Value = i.Name
+        });
+
+        ViewBag.productList = productList;
+        ViewBag.categoryList = CategoryList;
+
+        return View(ViewBag);
     }
 
     public IActionResult AboutUs()

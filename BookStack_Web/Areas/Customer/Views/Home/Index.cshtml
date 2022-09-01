@@ -1,8 +1,16 @@
-﻿@model IEnumerable<BookStack_Models.Product>
+﻿@*@model IEnumerable<BookStack_Models.Product>*@
+@using BookStack_DataAccess.Authorization
 
 
-<div class="row pb-3">
-	@foreach(var product in Model)
+	  <div class="col-lg-3 col-md-4">
+	   <form asp-controller="Home" asp-action="Index" class="p-2 m-2">
+            Category: <select asp-items="@ViewBag.CategoryList" name="Category"></select>
+            <input type="submit" value="Search"  />
+        </form>
+		 </div>
+		<div class="row pb-3">
+
+	@foreach(var product in ViewBag.productList)
 	{
 		<div class="col-lg-3 col-md-6">
 			<div class="row p-2">
@@ -26,13 +34,15 @@
 							Details
 						</a>
 					</div>
+					 @if (User.IsInRole(Constants.ClientRole)||User.IsInRole(Constants.AdministratorRole)){
 					<div>
 						<a asp-controller="Cart" asp-action="Add" class="btn btn-primary form-control" asp-route-productId="@product.Id">
 							Add to Cart
 						</a>
 					</div>
+					 }
 				</div> 
 			</div>
 		</div>
 	}
-</div>
+	</div>
