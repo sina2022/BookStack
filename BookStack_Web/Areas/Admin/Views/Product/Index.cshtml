@@ -1,4 +1,8 @@
-﻿
+﻿@using BookStack_DataAccess.Authorization
+
+
+@if (User.IsInRole(Constants.AdministratorRole))
+{
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
@@ -25,7 +29,7 @@
 	</thead>
 </table>
 </div>
-
+}
 @section Scripts{
     <script src="~/js/product.js"></script>
 }

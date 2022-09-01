@@ -23,10 +23,11 @@
 							<p class="card-title h5 text-primary">@product.Name</p>
 							
 						</div>
+						 @if (User.IsInRole(Constants.ClientRole)||User.IsInRole(Constants.AdministratorRole)){
 						<div class="pl-1">
 							<p> Price: <b>$@product.Price.ToString("0.00")</b></p>
 						</div>
-					
+						 }
 						</div>
 					</div>
 					<div>
