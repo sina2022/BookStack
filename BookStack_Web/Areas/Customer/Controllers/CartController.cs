@@ -71,6 +71,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                 _unitOfWork.Save();
             }
 
+            TempData["success"] = "Item Added to Cart";
             return RedirectToAction("Index", "Home");
         }
         public IActionResult Plus(int cartId)
