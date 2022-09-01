@@ -27,5 +27,6 @@ namespace BookStack_Models
 
         [NotMapped]
         public double Price { get; set; }
+        public string ApplicationUserId { get; set; }
     }
 }

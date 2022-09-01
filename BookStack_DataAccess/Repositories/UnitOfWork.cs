@@ -14,6 +14,8 @@ namespace BookStack_DataAccess.Repositories
         public ICategoryRepository Category { get; private set; }
         public IProductRepository Product { get; private set; }
 
+        public IShoppingCartRepository ShoppingCart { get; private set; }
+
         //public IcartRepository cart { get; private set; }
         //public IApplicationUserRepository ApplicationUser { get; private set; }
         //public IOrderHeaderRepository OrderHeader { get; private set; }
@@ -24,7 +26,9 @@ namespace BookStack_DataAccess.Repositories
         {
             _context = context;
             Category=new CategoryRepository(context);
-            Product=new ProductRepository(context); 
+            Product=new ProductRepository(context);
+            ShoppingCart = new ShoppingCartRepository(context);
+
         }
 
         public void Save()

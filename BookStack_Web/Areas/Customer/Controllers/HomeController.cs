@@ -43,36 +43,36 @@ public class HomeController : Controller
         return View(cartObj);
     }
 
-    //[HttpPost]
-    //[ValidateAntiForgeryToken]
-    //[Authorize]
-    //public IActionResult Details(ShoppingCart shoppingCart)
-    //{
-    //    var claimsIdentity = (ClaimsIdentity)User.Identity;
-    //    var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-    //    shoppingCart.ApplicationUserId = claim.Value;
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    [Authorize]
+    public IActionResult Details(ShoppingCart cartItem)
+    {
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+        cartItem.ApplicationUserId = claim.Value;
 
-    //    ShoppingCart cartFromDb = _unitOfWork.ShoppingCart.GetFirstOrDefault(
-    //        u => u.ApplicationUserId == claim.Value && u.ProductId == shoppingCart.ProductId);
+        ShoppingCart cartFromDb = _unitOfWork.ShoppingCart.Get(
+            u => u.ApplicationUserId == claim.Value && u.ProductId == cartItem.ProductId);
+
+        // Add product to cart if isn't found in DB Table "ShoppingCart"
+        if (cartFromDb == null)
+        {
+
+            _unitOfWork.ShoppingCart.Add(cartItem);
+            _unitOfWork.Save();
+            HttpContext.Session.SetInt32("SessionShoppingCart",
+                _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value).ToList().Count);
+        }
+        else
+        {
+            _unitOfWork.ShoppingCart.IncrementCount(cartFromDb, cartItem.Count);
+            _unitOfWork.Save();
+        }
 
 
-    //    if (cartFromDb == null)
-    //    {
-
-    //        _unitOfWork.ShoppingCart.Add(shoppingCart);
-    //        _unitOfWork.Save();
-    //        HttpContext.Session.SetInt32(SD.SessionCart,
-    //            _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value).ToList().Count);
-    //    }
-    //    else
-    //    {
-    //        _unitOfWork.ShoppingCart.IncrementCount(cartFromDb, shoppingCart.Count);
-    //        _unitOfWork.Save();
-    //    }
-
-
-    //    return RedirectToAction(nameof(Index));
-    //}
+        return RedirectToAction(nameof(Index));
+    }
 
 
     public IActionResult Privacy()

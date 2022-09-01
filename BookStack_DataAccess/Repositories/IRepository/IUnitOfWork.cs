@@ -11,7 +11,7 @@ namespace BookStack_DataAccess.Repositories.IRepository
         ICategoryRepository Category { get; }
         IProductRepository Product { get; }
 
-        //ICartRepository cart { get; }
+        IShoppingCartRepository ShoppingCart { get; }
         //IApplicationUserRepository ApplicationUser { get; }
         //IOrderHeaderRepository OrderHeader { get; }
         //IOrderDetailRepository OrderDetail { get; }

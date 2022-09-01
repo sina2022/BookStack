@@ -38,6 +38,14 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("RequireClientRole",
          policy => policy.RequireRole("Client"));
 });
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(100);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 var app = builder.Build();
 
 
@@ -64,7 +72,7 @@ app.UseAuthentication();;
 
 app.UseAuthorization();
 
-
+app.UseSession();
 app.MapRazorPages();
 app.UseEndpoints(endpoints =>
 {
