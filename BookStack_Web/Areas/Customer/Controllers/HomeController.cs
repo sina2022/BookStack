@@ -31,6 +31,16 @@ public class HomeController : Controller
         return View(productList);
     }
 
+    public IActionResult AboutUs()
+    {
+        return View();
+    }
+
+    public IActionResult ContactUs()
+    {
+        return View();
+    }
+
     public IActionResult Details(int productId)
     {
         ShoppingCart cartObj = new()
