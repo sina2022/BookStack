@@ -36,7 +36,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             };
             foreach(var cart in ShoppingCartVM.ListCart)
             {
-                ShoppingCartVM.Total += (cart.Price * cart.Count);
+                ShoppingCartVM.Total += (cart.Product.Price * cart.Count);
             }
             return View(ShoppingCartVM);
         }
