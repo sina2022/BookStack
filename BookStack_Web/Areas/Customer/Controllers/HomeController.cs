@@ -106,7 +106,7 @@ public class HomeController : Controller
             _unitOfWork.Save();
         }
 
-
+        TempData["success"] = "Item Added to Cart";
         return RedirectToAction(nameof(Index));
     }
 
