@@ -36,8 +36,4 @@
     <ProjectReference Include="..\BookStack_DataAccess\BookStack_DataAccess.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\images\products\" />
-  </ItemGroup>
-
 </Project>

@@ -43,17 +43,32 @@ public class HomeController : Controller
     [HttpPost]
     public ActionResult Index(string Category)
     {
-        IEnumerable<Product> productList = _unitOfWork.Product.GetAll(p => p.Category.Name == Category, includeProperties: "Category");
-    
-        var CategoryList = _unitOfWork.Category.GetAll().Select(i => new SelectListItem
+        if ((Category == "All Categories"))
         {
-            Text = i.Name,
-            Value = i.Name
-        });
+            var CategoryList = _unitOfWork.Category.GetAll().Select(i => new SelectListItem
+            {
+                Text = i.Name,
+                Value = i.Name
+            });
+            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
+
+            ViewBag.productList = productList;
+            ViewBag.categoryList = CategoryList;
+        }
+        else
+        {
+            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(p => p.Category.Name == Category, includeProperties: "Category");
+
+            var CategoryList = _unitOfWork.Category.GetAll().Select(i => new SelectListItem
+            {
+                Text = i.Name,
+                Value = i.Name
+            });
+       
 
         ViewBag.productList = productList;
         ViewBag.categoryList = CategoryList;
-
+        }
         return View(ViewBag);
     }
 
