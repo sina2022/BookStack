@@ -47,12 +47,18 @@
             <div class="col-12 col-md-6 pb-1">
                 <a class="btn btn-success form-control " style="height:50px;" asp-action="Index">Back to Home</a>
             </div>
-             @if (User.IsInRole(Constants.ClientRole)||User.IsInRole(Constants.AdministratorRole)){
-            <div class="col-12 col-md-6 pb-1">
-                <button type="submit" value="Add to Cart" class="btn btn-primary form-control" style="height:50px;">Add to Cart</button>
-            </div>
-             }
-        </div>
+                @if (User.IsInRole(Constants.ClientRole) || User.IsInRole(Constants.AdministratorRole)) {
+                    <div class="col-12 col-md-6 pb-1">
+                        <button type="submit" value="Add to Cart" class="btn btn-primary form-control" style="height:50px;">Add to Cart</button>
+                    </div>
+                      }
+                else
+                    {
+                          <div class="col-12 col-md-6 pb-1">
+                                <button type="button" value="Log in for add to cart" class="btn btn-primary form-control" style="height:50px;" disabled>Log in                                    for add to cart</button>
+                    </div>
+                    }
+                    </div>
     </div>
     
 </form>
